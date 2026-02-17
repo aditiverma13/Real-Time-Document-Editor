@@ -27,24 +27,26 @@ import React, { useContext } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import SignUp from './pages/SignUp';
 import SignIn from './pages/SignIn';
-import Customize from './pages/Customize';
-import { userDataContext } from './context/UserContext';
-import Home from './pages/Home';
-import Customize2 from './pages/Customize2';
+import Editor from './pages/Editor';
+import { userDataContext } from './context/UserContext.jsx';
 
 function App() {
   const { userData } = useContext(userDataContext);
 
   return (
     <Routes>
+
+      {/* Home Redirect */}
       <Route
         path="/"
         element={
-          userData?.assistantImage && userData?.assistantName
-            ? <Home />
-            : <Navigate to="/customize" />
+          userData
+            ? <Navigate to="/document/new" />
+            : <Navigate to="/signin" />
         }
       />
+
+      {/* Auth Routes */}
       <Route
         path="/signup"
         element={
@@ -53,6 +55,7 @@ function App() {
             : <Navigate to="/" />
         }
       />
+
       <Route
         path="/signin"
         element={
@@ -61,27 +64,23 @@ function App() {
             : <Navigate to="/" />
         }
       />
+
+      {/* Real-Time Editor */}
       <Route
-        path="/customize"
+        path="/document/:id"
         element={
           userData
-            ? <Customize />
-            : <Navigate to="/signup" />
+            ? <Editor />
+            : <Navigate to="/signin" />
         }
       />
-      <Route
-        path="/customize2"
-        element={
-          userData
-            ? <Customize2 />
-            : <Navigate to="/signup" />
-        }
-      />
+
     </Routes>
   );
 }
 
 export default App;
+
 
 
 

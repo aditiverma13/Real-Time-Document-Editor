@@ -9,7 +9,7 @@ import { IoEye, IoEyeOff } from "react-icons/io5";
 import { useNavigate } from 'react-router-dom';
 
 // Context to get server URL and user data functions
-import { userDataContext } from '../context/UserContext';
+import { userDataContext } from '../context/UserContext.jsx';
 import axios from "axios";
 
 function SignIn() {

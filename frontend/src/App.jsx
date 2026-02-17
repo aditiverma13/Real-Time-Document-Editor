@@ -23,12 +23,13 @@
 
 // export default App
 
-import React, { useContext } from 'react';
-import { Navigate, Route, Routes } from 'react-router-dom';
-import SignUp from './pages/SignUp';
-import SignIn from './pages/SignIn';
-import Editor from './pages/Editor';
-import { userDataContext } from './context/UserContext.jsx';
+import React, { useContext } from "react";
+import { Navigate, Route, Routes } from "react-router-dom";
+import SignUp from "./pages/SignUp";
+import SignIn from "./pages/SignIn";
+import Editor from "./pages/Editor";
+import Dashboard from "./pages/Dashboard";
+import { userDataContext } from "./context/UserContext";
 
 function App() {
   const { userData } = useContext(userDataContext);
@@ -36,51 +37,45 @@ function App() {
   return (
     <Routes>
 
-      {/* Home Redirect */}
+      {/* Default Route */}
       <Route
         path="/"
         element={
-          userData
-            ? <Navigate to="/document/new" />
-            : <Navigate to="/signin" />
+          userData ? <Navigate to="/dashboard" /> : <Navigate to="/signin" />
         }
       />
 
       {/* Auth Routes */}
       <Route
         path="/signup"
-        element={
-          !userData
-            ? <SignUp />
-            : <Navigate to="/" />
-        }
+        element={!userData ? <SignUp /> : <Navigate to="/dashboard" />}
       />
 
       <Route
         path="/signin"
-        element={
-          !userData
-            ? <SignIn />
-            : <Navigate to="/" />
-        }
+        element={!userData ? <SignIn /> : <Navigate to="/dashboard" />}
       />
 
-      {/* Real-Time Editor */}
+      {/* Dashboard */}
+      <Route
+        path="/dashboard"
+        element={userData ? <Dashboard /> : <Navigate to="/signin" />}
+      />
+
+      {/* Editor */}
       <Route
         path="/document/:id"
-        element={
-          userData
-            ? <Editor />
-            : <Navigate to="/signin" />
-        }
+        element={userData ? <Editor /> : <Navigate to="/signin" />}
       />
+
+      {/* Catch All */}
+      <Route path="*" element={<Navigate to="/" />} />
 
     </Routes>
   );
 }
 
 export default App;
-
 
 
 

@@ -1,5 +1,3 @@
-
-
 import axios from "axios";
 
 /**
@@ -89,4 +87,3 @@ now your userInput- ${command}
 };
 
 export default geminiResponse;
-
